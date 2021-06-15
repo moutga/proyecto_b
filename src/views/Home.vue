@@ -1,15 +1,23 @@
 <template>
-<div class="pa-3">Home</div>
+<div class="pa-3">
+	<Login />
+</div>
 </template>
 
 <script>
-  //import HelloWorld from '../components/HelloWorld'
+	//import HelloWorld from '../components/HelloWorld'
+	import Login from '@/components/Login.vue'
 
-  export default {
-    name: 'Home',
+	export default {
+	name: 'Home',
 
-    components: {
-      //HelloWorld,
-    },
-  }
+	components: {
+		//HelloWorld,
+		Login
+	},
+	}
 </script>
+
+<style>
+.w-75{width: 75%;}
+</style>
