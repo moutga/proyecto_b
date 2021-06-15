@@ -1,5 +1,5 @@
 <template>
-<div class="pa-3">
+<div class="pa-3 dark">
 	<Login />
 </div>
 </template>

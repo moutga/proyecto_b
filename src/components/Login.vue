@@ -1,9 +1,10 @@
 <template>
 <div>
-	<v-form class="w-75 mx-auto " >
+	<v-form @submit.prevent="submit" class="w-75 mx-auto " ref="form" >
 		<v-sheet class="pa-2 text-center mb-4" color="white" elevation="1"  >Iniciar sesión</v-sheet>
-		<v-text-field label="Usuario" prepend-inner-icon="mdi-account"></v-text-field>
-		<v-text-field label="Contraseña" type="password" prepend-inner-icon="mdi-form-textbox-password"></v-text-field>
+		<v-text-field  :rules="reglas" name="usuario" label="Usuario" prepend-inner-icon="mdi-account"></v-text-field>
+		<v-text-field  :rules="reglas" name="contraseña" label="Contraseña" type="password" prepend-inner-icon="mdi-form-textbox-password"></v-text-field>
+		<v-btn  class="my-4 blue" type="submit"  >Ingresar</v-btn>
 	</v-form>
 </div>
 </template>
@@ -12,10 +13,20 @@
 export default {
 	name: 'Login',
 	data:function(){
-		return {}
+		return {
+			reglas: [
+				v => !!v || 'Dato obligatorio'
+			],
+		}
 	},
 	props: {},
-	methods: {},
+	methods: {
+		submit: function submit() {
+			if(this.$refs.form.validate()){
+				this.$refs.form.$el.submit()
+			}
+		}
+	},
 	computed: {}
 }
 </script>
