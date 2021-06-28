@@ -78,6 +78,7 @@ export default {
 
 				//console.log('termino');
 
+				// Acciones si encuentra o no un usuario con las credenciales ingresadas
 				if(filtrado[0]){
 
 					console.log(filtrado[0]);
