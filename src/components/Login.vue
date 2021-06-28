@@ -17,15 +17,42 @@ export default {
 			usuario: '',
 			contrasena: '',
 			reglas: [
-				v => !!v || 'Dato obligatorio'
+				//v => !!v || 'Dato obligatorio',
+				function(x){
+					return !!x || 'Dato obligatorio'
+				}
 			],
+			peticion: {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				data: {}
+			}
 		}
 	},
 	props: {},
 	methods: {
 		submit: function submit() {
 			if(this.$refs.form.validate()){
+				//https://my-json-server.typicode.com/moutga/test/
 				console.log(this.usuario, this.contrasena);
+				this.peticion.data.nombre = this.usuario;
+				this.peticion.data.contrasena = this.contrasena;
+
+				console.log(this.peticion);
+
+				fetch('https://my-json-server.typicode.com/moutga/test/usuarios',this.peticion)
+				.then(function(response){
+					console.log(response.ok);
+					return response.json();
+				})
+				.then(function(response){
+
+					console.log(response);
+
+				})
+
 			}
 		}
 	},
