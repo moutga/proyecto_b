@@ -1,7 +1,15 @@
 <template>
 <div>
 	<v-form @submit.prevent="miSubmit" class="w-75 mx-auto " ref="form" >
+
 		<v-sheet class="pa-2 text-center mb-4" color="white" elevation="1"  >Iniciar sesión</v-sheet>
+
+		<v-alert dense outlined type="error" v-if="error">
+		Inicio de sesión incorrecto
+		</v-alert>
+
+		<v-progress-linear v-if="buscando" color="blue" indeterminate rounded height="6" ></v-progress-linear>
+
 		<v-text-field v-model="usuario" :rules="reglas" name="usuario" label="Usuario" prepend-inner-icon="mdi-account"></v-text-field>
 		<v-text-field v-model="contrasena" ref="contrasena" :rules="reglas" name="contraseña" label="Contraseña" type="password" prepend-inner-icon="mdi-form-textbox-password"></v-text-field>
 		<v-btn  class="my-4 blue" type="submit"  >Ingresar</v-btn>
@@ -16,6 +24,8 @@ export default {
 		return {
 			usuario: '',
 			contrasena: '',
+			error: false,
+			buscando: false,
 			reglas: [
 				//v => !!v || 'Dato obligatorio',
 				function(x){
@@ -30,6 +40,7 @@ export default {
 			if(this.$refs.form.validate()){
 				//https://my-json-server.typicode.com/moutga/test/
 				//console.log(this.usuario, this.contrasena);
+				let filtrado;
 
 				let peticion = {
 					method: 'get',
@@ -37,7 +48,7 @@ export default {
 						'Content-Type': 'application/json'
 					},
 					data: {}
-				}
+				};
 
 				// Guardo local de la función usuario y contraseña para usar en el filtro
 				// en la peticion guardo para enviarla por POST si fuera autenticacion real
@@ -47,6 +58,7 @@ export default {
 				console.log(peticion);
 
 				//console.log('inicio');
+				this.buscando = true;
 
 				await fetch('https://my-json-server.typicode.com/moutga/test/usuarios',peticion)
 				.then(function(response){
@@ -57,15 +69,26 @@ export default {
 
 					console.log(response);
 
-					let filtrado = response.filter(user => {
+					// Filtro en la lista de usuarios obtenida por el que coincida con usuario y contraseña
+					filtrado = response.filter(user => {
 						return user.nombre === u && user.contrasena === c;
                     });
 
-					console.log(filtrado[0]);
-
-				})
+				});
 
 				//console.log('termino');
+
+				if(filtrado[0]){
+
+					console.log(filtrado[0]);
+					this.error = false;
+
+				} else {
+					this.error = true;
+				}
+				
+				this.buscando = false;
+				
 
 			}
 		}
