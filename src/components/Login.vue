@@ -1,5 +1,6 @@
 <template>
 <div>
+
 	<v-form @submit.prevent="miSubmit" class="w-75 mx-auto " ref="form" >
 
 		<v-sheet class="pa-2 text-center mb-4" color="white" elevation="1"  >Iniciar sesión</v-sheet>
@@ -14,6 +15,7 @@
 		<v-text-field v-model="contrasena" ref="contrasena" :rules="reglas" name="contraseña" label="Contraseña" type="password" prepend-inner-icon="mdi-form-textbox-password"></v-text-field>
 		<v-btn  class="my-4 blue" type="submit"  >Ingresar</v-btn>
 	</v-form>
+
 </div>
 </template>
 
@@ -55,19 +57,19 @@ export default {
 				let u = peticion.data.nombre = this.usuario;
 				let c = peticion.data.contrasena = this.contrasena;
 
-				console.log(peticion);
+				//console.log(peticion);
 
 				//console.log('inicio');
 				this.buscando = true;
 
 				await fetch('https://my-json-server.typicode.com/moutga/test/usuarios',peticion)
 				.then(function(response){
-					console.log(response.ok);
+					//console.log(response.ok);
 					return response.json();
 				})
 				.then(function(response){
 
-					console.log(response);
+					//console.log(response);
 
 					// Filtro en la lista de usuarios obtenida por el que coincida con usuario y contraseña
 					filtrado = response.filter(user => {
@@ -81,15 +83,20 @@ export default {
 				// Acciones si encuentra o no un usuario con las credenciales ingresadas
 				if(filtrado[0]){
 
-					console.log(filtrado[0]);
+					//console.log(filtrado[0]);
 					this.error = false;
+
+					// Guardo info en local
+					localStorage.setItem('agendaUsuario',filtrado[0].nombre);
+					localStorage.setItem('agendaToken',filtrado[0].token);
+
+					this.$router.go();
 
 				} else {
 					this.error = true;
 				}
 				
-				this.buscando = false;
-				
+				this.buscando = false;				
 
 			}
 		}

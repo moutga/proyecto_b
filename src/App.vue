@@ -43,25 +43,6 @@
 </template>
 
 <script>
-
-// const contactos = {
-// 	nombre: 'x',
-// 	apellido: 'x',
-// 	domicilio: {
-// 		ciudad: 'x',
-// 		calle: 'x',
-// 		numero: 'x',
-// 		cp: 123
-// 	},
-// 	email: 'x',
-// 	telefonos: [
-// 		{numero: 123, clase: 'x'}
-// 	],
-// 	foto: 'x',
-// 	fechaNacimiento: 'x',
-//	etiquetas: []
-// }
-
 export default {
   name: 'App',
 

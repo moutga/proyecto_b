@@ -1,12 +1,24 @@
 <template>
-<div class="pa-3">agenda</div>
+<div class="pa-3">
+	
+Agenda
+
+</div>
 </template>
 
 <script>
-  export default {
-    name: 'Agenda',
+export default {
+	name: 'Agenda',
+	data: function(){
+		return {
 
-    components: {
-    },
-  }
+		};
+	},
+	props: {},
+	methods: {},
+	mounted: function(){
+
+		
+	}
+}
 </script>

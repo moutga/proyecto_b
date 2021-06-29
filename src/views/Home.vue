@@ -1,8 +1,12 @@
 <template>
 <div class="pa-3 dark">
-	<v-sheet class="pa-1 text-center mb-4 mx-auto max-w-300" color="white" elevation="1">
+
+	<v-alert v-if="usuario" dense text type="success">Bienvenido <strong>{{usuario}}</strong></v-alert>
+
+	<v-sheet v-else class="pa-1 text-center mb-4 mx-auto max-w-300" color="white" elevation="1">
 	<Login />
 	</v-sheet>
+
 </div>
 </template>
 
@@ -11,12 +15,24 @@
 	import Login from '@/components/Login.vue'
 
 	export default {
-	name: 'Home',
+		name: 'Home',
 
-	components: {
-		//HelloWorld,
-		Login
-	},
+		data: function(){
+			return {
+				usuario: ''
+			}
+		},
+
+		components: {
+			//HelloWorld,
+			Login
+		},
+
+		mounted: function(){
+
+			this.usuario = localStorage.getItem('agendaUsuario');
+
+		}
 	}
 </script>
 
