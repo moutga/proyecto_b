@@ -1,7 +1,7 @@
 <template>
-<div class="pa-3">
+<div>
 	
-Agenda
+hola acá va la agenda
 
 </div>
 </template>
@@ -18,7 +18,13 @@ export default {
 	methods: {},
 	mounted: function(){
 
-		
+		// Redirigir a la home si no hay sesión iniciada
+		if(!localStorage.getItem('agendaUsuario')){
+
+			this.$router.push({ path: '/' })
+
+		}
+
 	}
 }
 </script>
