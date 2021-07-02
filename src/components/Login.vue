@@ -33,7 +33,7 @@ export default {
 				function(x){
 					return !!x || 'Dato obligatorio'
 				}
-			]	
+			]
 		}
 	},
 	props: {},
@@ -104,7 +104,3 @@ export default {
 	computed: {}
 }
 </script>
-
-<style scoped>
-
-</style>
