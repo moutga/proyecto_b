@@ -31,10 +31,47 @@
 
 <script>
 export default {
-  name: 'App',
+	name: 'App',
 
-  data: () => ({
-    //
-  }),
-};
+	data: () => ({
+	//
+	}),
+
+	mounted: function(){
+
+		const usuarios = [
+			{
+				id: 1,
+				nombre:"Administrador",
+				usuario:"admin",
+				contrasena:"1234",
+				rol:"ADMINISTRADOR",
+				token: "asdf654a31sdfa64dfa3sdf121"
+			},
+			{
+				id: 2,
+				nombre:"Gabriel",
+				usuario: "gabriel",
+				contrasena:"1234",
+				rol:"USUARIO",
+				token: "465asdf64asdf19678asdf1313asdf"
+			},
+			{
+				id: 3,
+				nombre:"Alejandro",
+				usuario:"alejandro",
+				contrasena:"1234",
+				rol:"USUARIO",
+				token: "465asdf798131asdf1g4qerg"
+			}
+		];
+
+		// Guardar la lista de usuarios en localstorage si todavía no están
+		if( !localStorage.getItem('usuarios') ){
+			localStorage.setItem('usuarios',JSON.stringify(usuarios));
+		}
+
+	}
+ 
+}
 </script>
