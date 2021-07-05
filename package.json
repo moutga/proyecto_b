@@ -54,7 +54,8 @@
       {
         "files": [
           "**/__tests__/*.{j,t}s?(x)",
-          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+          "**/tests/unit/**/*.spec.{j,t}s?(x)",
+		  "**/src/services/**/*.spec.{j,t}s?(x)"
         ],
         "env": {
           "jest": true
@@ -63,7 +64,8 @@
       {
         "files": [
           "**/__tests__/*.{j,t}s?(x)",
-          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+          "**/tests/unit/**/*.spec.{j,t}s?(x)",
+		  "**/src/services/**/*.spec.{j,t}s?(x)"
         ],
         "env": {
           "jest": true
@@ -77,7 +79,10 @@
     "not dead"
   ],
   "jest": {
-    "preset": "@vue/cli-plugin-unit-jest"
+    "preset": "@vue/cli-plugin-unit-jest",
+	"testMatch": [
+		"**/src/services/**/*.spec.{j,t}s?(x)"
+	  ]
   },
   "_id": "agenda@0.1.0",
   "readme": "ERROR: No README data found!"

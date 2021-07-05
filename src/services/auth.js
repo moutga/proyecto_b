@@ -1,10 +1,10 @@
 class Auth {
-	
+
 	getUsuarios() {
 
 		const promesa = new Promise(function(resolve,reject){
 
-			setTimeout(() => {
+			//setTimeout(() => {
 				
 				let usuarios = JSON.parse(localStorage.getItem('usuarios'));
 				
@@ -20,7 +20,7 @@ class Auth {
 					reject();
 				}	
 				
-			}, 2000);
+			//}, 2000);
 	
 		});
 		
