@@ -46,7 +46,6 @@ export default {
 				usuario:"admin",
 				contrasena:"1234",
 				rol:"ADMINISTRADOR",
-				token: "asdf654a31sdfa64dfa3sdf121"
 			},
 			{
 				id: 2,
@@ -54,7 +53,6 @@ export default {
 				usuario: "gabriel",
 				contrasena:"1234",
 				rol:"USUARIO",
-				token: "465asdf64asdf19678asdf1313asdf"
 			},
 			{
 				id: 3,
@@ -62,7 +60,6 @@ export default {
 				usuario:"alejandro",
 				contrasena:"1234",
 				rol:"USUARIO",
-				token: "465asdf798131asdf1g4qerg"
 			}
 		];
 
