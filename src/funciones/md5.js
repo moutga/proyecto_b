@@ -1,4 +1,4 @@
-export default const md5 = function(string) {
+export default function md5(string) {
 
 	function RotateLeft(lValue, iShiftBits) {
 			return (lValue<<iShiftBits) | (lValue>>>(32-iShiftBits));

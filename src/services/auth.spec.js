@@ -1,6 +1,6 @@
 //import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import Auth from '@/services/auth.js'
-import md5 from 'blueimp-md5';
+import md5 from "@/funciones/md5.js";
 import '@/localStorage.js'
 //import Vuex from 'vuex'
 
@@ -105,6 +105,9 @@ describe("Testeo de métodos de Auth", function(){
 
 	it("Test de guardar()", async function(){
 
+		// Vaciar localStorage antes de comenzar
+		localStorage.clear();
+
 		const usuarios = [
 			{
 				id: 1,
@@ -114,7 +117,7 @@ describe("Testeo de métodos de Auth", function(){
 				rol:"ADMINISTRADOR"
 			},
 			{
-				id: 1,
+				id: 2,
 				nombre:"Gabriel",
 				usuario:"gabriel",
 				contrasena:"1234",
@@ -123,14 +126,70 @@ describe("Testeo de métodos de Auth", function(){
 		];
 		localStorage.setItem('usuarios', JSON.stringify(usuarios));
 
-		const nombre = 'Gabriel';
-		const rol = 'USUARIO';
-		const usuario = 'gabriel';
-		const pass = '1234';
+		const nuevoUsuarioRepetido = {
+			usuario: 'gabriel',
+			nombre: 'Paco',
+			contrasena: '465465',
+			rol: 'USUARIO'
+		};
+		
+		const nuevoUsuarioRolMal = {
+			usuario: 'minino',
+			nombre: 'Paco',
+			contrasena: '465465',
+			rol: 'USER'
+		};
+		
+		const nuevoUsuarioIncompleto = {
+			usuario: 'pollito',
+			nombre: 'Paco',
+			contrasena: '465465',
+		};
+		
+		const contrasena = '465465';
+		const nuevoUsuarioBien = {
+			usuario: 'pikachu',
+			nombre: 'Alfredo',
+			contrasena: contrasena,
+			rol: 'ADMINISTRADOR'
+		};
 
+		const nuevoUser = await Auth.guardar(nuevoUsuarioBien);
+		const todosUsuarios = JSON.parse(localStorage.getItem('usuarios'));
+
+		// console.log(JSON.stringify(todosUsuarios[todosUsuarios.length - 1]));
+		// console.log(md5(contrasena));
+
+		let contrasenaMd5 = (md5(contrasena) == todosUsuarios[todosUsuarios.length - 1].contrasena)? true: false;
+		// console.log(contrasenaMd5);
+		
+
+		let nombreDisponible = true;
+		let rolBien = true;
+		let datosCompletos = true;
+
+		try{
+			await Auth.guardar(nuevoUsuarioRepetido);
+		} catch(e){
+			nombreDisponible = false;
+		}
+
+		try{
+			await Auth.guardar(nuevoUsuarioRolMal);
+		} catch(e){
+			rolBien = false;
+		}
+
+		try{
+			await Auth.guardar(nuevoUsuarioIncompleto);
+		} catch(e){
+			datosCompletos = false;
+		}
+
+		let cumpleTodo = !nombreDisponible && !rolBien && !datosCompletos && contrasenaMd5;
 		//const x = true;
 		//Análisis de lo que se espera
-        expect(x).toBe(true)
+        expect(cumpleTodo).toBe(true)
 	})
 
 });

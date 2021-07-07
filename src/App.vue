@@ -44,21 +44,21 @@ export default {
 				id: 1,
 				nombre:"Administrador",
 				usuario:"admin",
-				contrasena:"1234",
+				contrasena:"81dc9bdb52d04dc20036dbd8313ed055",
 				rol:"ADMINISTRADOR",
 			},
 			{
 				id: 2,
 				nombre:"Gabriel",
 				usuario: "gabriel",
-				contrasena:"1234",
+				contrasena:"81dc9bdb52d04dc20036dbd8313ed055",
 				rol:"USUARIO",
 			},
 			{
 				id: 3,
 				nombre:"Alejandro",
 				usuario:"alejandro",
-				contrasena:"1234",
+				contrasena:"81dc9bdb52d04dc20036dbd8313ed055",
 				rol:"USUARIO",
 			}
 		];
