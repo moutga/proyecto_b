@@ -5,7 +5,10 @@ import "@/localStorage.js";
 //import Vuex from 'vuex'
 
 describe("Testeo de métodos de Auth", function () {
-	xit("Test de getUsuarios()", async function () {
+
+	it("Test de getUsuarios()", async function () {
+
+		localStorage.clear();
 		const usuarios = [
 			{
 				id: 1,
@@ -50,20 +53,22 @@ describe("Testeo de métodos de Auth", function () {
 		expect(cumple).toBe(true);
 	});
 
-	xit("Test de login()", async function () {
+	it("Test de login()", async function () {
+
+		localStorage.clear();
 		const usuarios = [
 			{
 				id: 1,
 				nombre: "Administrador",
 				usuario: "admin",
-				contrasena: "1234",
+				contrasena: "81dc9bdb52d04dc20036dbd8313ed055",
 				rol: "ADMINISTRADOR",
 			},
 			{
 				id: 1,
 				nombre: "Gabriel",
 				usuario: "gabriel",
-				contrasena: "1234",
+				contrasena: "81dc9bdb52d04dc20036dbd8313ed055",
 				rol: "USUARIO",
 			},
 		];
@@ -106,7 +111,7 @@ describe("Testeo de métodos de Auth", function () {
 		);
 	});
 
-	xit("Test de guardar()", async function () {
+	it("Test de guardar()", async function () {
 		// Vaciar localStorage antes de comenzar
 		localStorage.clear();
 
@@ -115,14 +120,14 @@ describe("Testeo de métodos de Auth", function () {
 				id: 1,
 				nombre: "Administrador",
 				usuario: "admin",
-				contrasena: "1234",
+				contrasena: "81dc9bdb52d04dc20036dbd8313ed055",
 				rol: "ADMINISTRADOR",
 			},
 			{
 				id: 2,
 				nombre: "Gabriel",
 				usuario: "gabriel",
-				contrasena: "1234",
+				contrasena: "81dc9bdb52d04dc20036dbd8313ed055",
 				rol: "USUARIO",
 			},
 		];
@@ -162,12 +167,8 @@ describe("Testeo de métodos de Auth", function () {
 		// console.log(JSON.stringify(todosUsuarios[todosUsuarios.length - 1]));
 		// console.log(md5(contrasena));
 
-		let contrasenaMd5 =
-			md5(contrasena) ==
-				todosUsuarios[todosUsuarios.length - 1].contrasena
-				? true
-				: false;
-		// console.log(contrasenaMd5);
+		let contrasenaMd5 = md5(contrasena) == todosUsuarios[todosUsuarios.length - 1].contrasena ? true : false;
+		//console.log(md5(contrasena), todosUsuarios[todosUsuarios.length - 1].contrasena);
 
 		let nombreDisponible = true;
 		let rolBien = true;
@@ -191,8 +192,8 @@ describe("Testeo de métodos de Auth", function () {
 			datosCompletos = false;
 		}
 
-		let cumpleTodo =
-			!nombreDisponible && !rolBien && !datosCompletos && contrasenaMd5;
+		let cumpleTodo = !nombreDisponible && !rolBien && !datosCompletos && contrasenaMd5;
+		//console.log(nombreDisponible, rolBien, datosCompletos, contrasenaMd5)
 		//const x = true;
 		//Análisis de lo que se espera
 		expect(cumpleTodo).toBe(true);

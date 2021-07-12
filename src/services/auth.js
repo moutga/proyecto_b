@@ -71,7 +71,7 @@ class Auth {
 		let todosDatos = (usuData.nombre && usuData.usuario && usuData.rol && usuData.contrasena) ? true : false;
 		//console.log(rolCorrecto);
 
-		const promesa = new Promise(async function (resolve, reject) {
+		const promesa = new Promise(function (resolve, reject) {
 
 			if (!rolCorrecto) {
 				reject('Rol incorrecto');
@@ -87,7 +87,8 @@ class Auth {
 			let nuevoUsuario = {};
 			let usuarios = [];
 
-			usuarios = await getUsuarios();
+			usuarios = JSON.parse(localStorage.getItem('usuarios'));
+			//usuarios = Auth.getUsuarios();
 
 			if (usuarios) {
 
@@ -104,7 +105,7 @@ class Auth {
 					nombre: usuData.nombre,
 					usuario: nuevoNombreUsuario,
 					rol: usuData.rol,
-					contrasena: md5(usuData.rol)
+					contrasena: md5(usuData.contrasena)
 				}
 
 			} else {
@@ -142,7 +143,7 @@ class Auth {
 		let indexUsuario = null;
 
 		// anónima y asíncrona para poder usar await getUsuarios()
-		return new Promise(async function (resolve, reject) {
+		return new Promise(function (resolve, reject) {
 
 			// Verifico condiciones y comunico error si no se cumplen
 			if (!hayId) { reject('Hace falta ID de usuario'); return; }
@@ -161,7 +162,7 @@ class Auth {
 				if (!idValido) { reject('La ID no corresponde a un usuario'); return; }
 
 				// Obtengo índice del usuario que voy a trabajar
-				indexUsuario = usuarios.findIndex(function (u, i) {
+				indexUsuario = usuarios.findIndex(function (u) {
 					return (u.id == usuData.id);
 				});
 
@@ -199,9 +200,9 @@ class Auth {
 		return new Promise(async function (resolve, reject) {
 
 			// usa getUsuarios para levantar la lista
-			usuarios = await getUsuarios();
+			usuarios = await this.getUsuarios();
 
-			let existe = usuarios.findIndex(function (u) {
+			existe = usuarios.findIndex(function (u) {
 				return u.id == id;
 			});
 
