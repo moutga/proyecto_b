@@ -1,23 +1,21 @@
 //import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
-import Auth from '@/services/auth.js'
+import Auth from "@/services/auth.js";
 import md5 from "@/funciones/md5.js";
-import '@/localStorage.js'
+import "@/localStorage.js";
 //import Vuex from 'vuex'
 
-describe("Testeo de métodos de Auth", function(){
-  
-    xit("Test de getUsuarios()", async function(){
-
+describe("Testeo de métodos de Auth", function () {
+	xit("Test de getUsuarios()", async function () {
 		const usuarios = [
 			{
 				id: 1,
-				nombre:"Administrador",
-				usuario:"admin",
-				contrasena:"1234",
-				rol:"ADMINISTRADOR"
-			}
+				nombre: "Administrador",
+				usuario: "admin",
+				contrasena: "1234",
+				rol: "ADMINISTRADOR",
+			},
 		];
-		localStorage.setItem('usuarios', JSON.stringify(usuarios));
+		localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
 		const p = await Auth.getUsuarios();
 		const promesa = Auth.getUsuarios();
@@ -27,15 +25,18 @@ describe("Testeo de métodos de Auth", function(){
 		let noContrasena = false;
 		let esPromesa = false;
 
-		if(p[0].id && p[0].nombre && p[0].usuario && p[0].rol){
+		if (p[0].id && p[0].nombre && p[0].usuario && p[0].rol) {
 			camposOk = true;
 		}
 
-		if( !p[0].contrasena ){
+		if (!p[0].contrasena) {
 			noContrasena = true;
 		}
 
-		if( promesa && Object.prototype.toString.call(promesa) === "[object Promise]" ){
+		if (
+			promesa &&
+			Object.prototype.toString.call(promesa) === "[object Promise]"
+		) {
 			esPromesa = true;
 		}
 
@@ -46,150 +47,228 @@ describe("Testeo de métodos de Auth", function(){
 
 		//const x = true;
 		//Análisis de lo que se espera
-        expect(cumple).toBe(true)
+		expect(cumple).toBe(true);
+	});
 
-    });
-
-	xit("Test de login()", async function(){
-
+	xit("Test de login()", async function () {
 		const usuarios = [
 			{
 				id: 1,
-				nombre:"Administrador",
-				usuario:"admin",
-				contrasena:"1234",
-				rol:"ADMINISTRADOR"
+				nombre: "Administrador",
+				usuario: "admin",
+				contrasena: "1234",
+				rol: "ADMINISTRADOR",
 			},
 			{
 				id: 1,
-				nombre:"Gabriel",
-				usuario:"gabriel",
-				contrasena:"1234",
-				rol:"USUARIO"
-			}
+				nombre: "Gabriel",
+				usuario: "gabriel",
+				contrasena: "1234",
+				rol: "USUARIO",
+			},
 		];
-		localStorage.setItem('usuarios', JSON.stringify(usuarios));
+		localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-		const nombre = 'Gabriel';
-		const rol = 'USUARIO';
-		const usuario = 'gabriel';
-		const pass = '1234';
+		const nombre = "Gabriel";
+		const rol = "USUARIO";
+		const usuario = "gabriel";
+		const pass = "1234";
 
-		const user = await Auth.login(usuario,pass);
-		const promesa = Auth.login(usuario,pass);
+		const user = await Auth.login(usuario, pass);
+		const promesa = Auth.login(usuario, pass);
 		//console.log(user);
-		
+
 		let cumpleNombre = false;
 		let cumpleRol = false;
 		let esPromesa = false;
 		let noContrasena = false;
 
-		if(nombre == user.nombre){
+		if (nombre == user.nombre) {
 			cumpleNombre = true;
 		}
-		if(rol == user.rol){
+		if (rol == user.rol) {
 			cumpleRol = true;
 		}
-		if( promesa && Object.prototype.toString.call(promesa) === "[object Promise]" ){
+		if (
+			promesa &&
+			Object.prototype.toString.call(promesa) === "[object Promise]"
+		) {
 			esPromesa = true;
 		}
-		if( !user.contrasena ){
+		if (!user.contrasena) {
 			noContrasena = true;
 		}
 
 		//const x = true;
 		//Análisis de lo que se espera
-        expect(cumpleNombre && cumpleRol && esPromesa && noContrasena).toBe(true)
-
+		expect(cumpleNombre && cumpleRol && esPromesa && noContrasena).toBe(
+			true
+		);
 	});
 
-	it("Test de guardar()", async function(){
-
+	xit("Test de guardar()", async function () {
 		// Vaciar localStorage antes de comenzar
 		localStorage.clear();
 
 		const usuarios = [
 			{
 				id: 1,
-				nombre:"Administrador",
-				usuario:"admin",
-				contrasena:"1234",
-				rol:"ADMINISTRADOR"
+				nombre: "Administrador",
+				usuario: "admin",
+				contrasena: "1234",
+				rol: "ADMINISTRADOR",
 			},
 			{
 				id: 2,
-				nombre:"Gabriel",
-				usuario:"gabriel",
-				contrasena:"1234",
-				rol:"USUARIO"
-			}
+				nombre: "Gabriel",
+				usuario: "gabriel",
+				contrasena: "1234",
+				rol: "USUARIO",
+			},
 		];
-		localStorage.setItem('usuarios', JSON.stringify(usuarios));
+		localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
 		const nuevoUsuarioRepetido = {
-			usuario: 'gabriel',
-			nombre: 'Paco',
-			contrasena: '465465',
-			rol: 'USUARIO'
+			usuario: "gabriel",
+			nombre: "Paco",
+			contrasena: "465465",
+			rol: "USUARIO",
 		};
-		
+
 		const nuevoUsuarioRolMal = {
-			usuario: 'minino',
-			nombre: 'Paco',
-			contrasena: '465465',
-			rol: 'USER'
+			usuario: "minino",
+			nombre: "Paco",
+			contrasena: "465465",
+			rol: "USER",
 		};
-		
+
 		const nuevoUsuarioIncompleto = {
-			usuario: 'pollito',
-			nombre: 'Paco',
-			contrasena: '465465',
+			usuario: "pollito",
+			nombre: "Paco",
+			contrasena: "465465",
 		};
-		
-		const contrasena = '465465';
+
+		const contrasena = "465465";
 		const nuevoUsuarioBien = {
-			usuario: 'pikachu',
-			nombre: 'Alfredo',
+			usuario: "pikachu",
+			nombre: "Alfredo",
 			contrasena: contrasena,
-			rol: 'ADMINISTRADOR'
+			rol: "ADMINISTRADOR",
 		};
 
 		const nuevoUser = await Auth.guardar(nuevoUsuarioBien);
-		const todosUsuarios = JSON.parse(localStorage.getItem('usuarios'));
+		const todosUsuarios = JSON.parse(localStorage.getItem("usuarios"));
 
 		// console.log(JSON.stringify(todosUsuarios[todosUsuarios.length - 1]));
 		// console.log(md5(contrasena));
 
-		let contrasenaMd5 = (md5(contrasena) == todosUsuarios[todosUsuarios.length - 1].contrasena)? true: false;
+		let contrasenaMd5 =
+			md5(contrasena) ==
+				todosUsuarios[todosUsuarios.length - 1].contrasena
+				? true
+				: false;
 		// console.log(contrasenaMd5);
-		
 
 		let nombreDisponible = true;
 		let rolBien = true;
 		let datosCompletos = true;
 
-		try{
+		try {
 			await Auth.guardar(nuevoUsuarioRepetido);
-		} catch(e){
+		} catch (e) {
 			nombreDisponible = false;
 		}
 
-		try{
+		try {
 			await Auth.guardar(nuevoUsuarioRolMal);
-		} catch(e){
+		} catch (e) {
 			rolBien = false;
 		}
 
-		try{
+		try {
 			await Auth.guardar(nuevoUsuarioIncompleto);
-		} catch(e){
+		} catch (e) {
 			datosCompletos = false;
 		}
 
-		let cumpleTodo = !nombreDisponible && !rolBien && !datosCompletos && contrasenaMd5;
+		let cumpleTodo =
+			!nombreDisponible && !rolBien && !datosCompletos && contrasenaMd5;
 		//const x = true;
 		//Análisis de lo que se espera
-        expect(cumpleTodo).toBe(true)
-	})
+		expect(cumpleTodo).toBe(true);
+	});
 
+	it("Test de actualizar()", async function () {
+		// Vaciar localStorage antes de comenzar
+		localStorage.clear();
+
+		const usuarios = [
+			{
+				id: 1,
+				nombre: "Administrador",
+				usuario: "admin",
+				contrasena: "81dc9bdb52d04dc20036dbd8313ed055",
+				rol: "ADMINISTRADOR",
+			},
+			{
+				id: 2,
+				nombre: "Gabriel",
+				usuario: "gabriel",
+				contrasena: "81dc9bdb52d04dc20036dbd8313ed055",
+				rol: "USUARIO",
+			},
+		];
+		localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+		const contrasena = "12345";
+		const nuevoUsuarioBien = {
+			id: 2,
+			usuario: "pikachu",
+			nombre: "Alfredo",
+			contrasena: contrasena,
+			rol: "ADMINISTRADOR",
+		};
+
+		let idExiste = true;
+		let rolExiste = true;
+
+		try {
+			await Auth.actualizar(nuevoUsuarioBien);
+		} catch (e) {
+			idExiste = false;
+		}
+		try {
+			await Auth.actualizar(nuevoUsuarioBien);
+		} catch (e) {
+			rolExiste = false;
+		}
+
+		const sinContra = {
+			id: 2,
+			rol: "USUARIO"
+		};
+		await Auth.actualizar(sinContra);
+		let userSinCambioContrasena = JSON.parse(localStorage.getItem('usuarios')).find(function (u) {
+			return u.id == sinContra.id
+		});
+
+		const conContra = {
+			id: 2,
+			rol: "ADMINISTRADOR",
+			contrasena: '0000'
+		};
+		await Auth.actualizar(conContra);
+		let userConCambioContrasena = JSON.parse(localStorage.getItem('usuarios')).find(function (u) {
+			return u.id == conContra.id
+		});
+
+		let cambiaContrasena = userSinCambioContrasena.contrasena != userConCambioContrasena.contrasena
+
+		let losRequisitos = cambiaContrasena && idExiste && rolExiste;
+
+		//const x = true;
+		//Análisis de lo que se espera
+		expect(losRequisitos).toBe(true);
+
+	});
 });
