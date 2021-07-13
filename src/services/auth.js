@@ -88,7 +88,7 @@ class Auth {
 			let usuarios = [];
 
 			usuarios = JSON.parse(localStorage.getItem('usuarios'));
-			//usuarios = Auth.getUsuarios();
+			//usuarios = await getUsuarios();
 
 			if (usuarios) {
 
@@ -200,7 +200,8 @@ class Auth {
 		return new Promise(async function (resolve, reject) {
 
 			// usa getUsuarios para levantar la lista
-			usuarios = await this.getUsuarios();
+			//usuarios = await this.getUsuarios();
+			usuarios = JSON.parse(localStorage.getItem('usuarios'));
 
 			existe = usuarios.findIndex(function (u) {
 				return u.id == id;
@@ -229,9 +230,10 @@ class Auth {
 		// anónima y asíncrona para poder usar await getUsuarios()
 		return new Promise(async function (resolve, reject) {
 
-			usuarios = await getUsuarios();
+			//usuarios = await getUsuarios();
+			usuarios = JSON.parse(localStorage.getItem('usuarios'));
 
-			let existe = usuarios.findIndex(function (u) {
+			existe = usuarios.findIndex(function (u) {
 				return u.id == id;
 			});
 

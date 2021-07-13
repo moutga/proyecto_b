@@ -164,9 +164,6 @@ describe("Testeo de métodos de Auth", function () {
 		const nuevoUser = await Auth.guardar(nuevoUsuarioBien);
 		const todosUsuarios = JSON.parse(localStorage.getItem("usuarios"));
 
-		// console.log(JSON.stringify(todosUsuarios[todosUsuarios.length - 1]));
-		// console.log(md5(contrasena));
-
 		let contrasenaMd5 = md5(contrasena) == todosUsuarios[todosUsuarios.length - 1].contrasena ? true : false;
 		//console.log(md5(contrasena), todosUsuarios[todosUsuarios.length - 1].contrasena);
 
@@ -272,4 +269,90 @@ describe("Testeo de métodos de Auth", function () {
 		expect(losRequisitos).toBe(true);
 
 	});
+
+	it("Test de getPorId()", async function () {
+		// Vaciar localStorage antes de comenzar
+		localStorage.clear();
+		const usuarios = [
+			{
+				id: 1,
+				nombre: "Administrador",
+				usuario: "admin",
+				contrasena: "81dc9bdb52d04dc20036dbd8313ed055",
+				rol: "ADMINISTRADOR",
+			},
+			{
+				id: 2,
+				nombre: "Gabriel",
+				usuario: "gabriel",
+				contrasena: "81dc9bdb52d04dc20036dbd8313ed055",
+				rol: "USUARIO",
+			},
+		];
+		localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+		const promesa = Auth.getPorId(2);
+		const resultado = await Auth.getPorId(2);
+
+		const esPromesa = Object.prototype.toString.call(promesa) === "[object Promise]"
+		const datosCompletos = (resultado.id && resultado.usuario && resultado.nombre && resultado.rol) ? true : false
+
+		let promesaMal = false;
+		try {
+			await Auth.getPorId(22);
+		} catch (e) {
+			promesaMal = true;
+		}
+
+		const cumpleTodo = datosCompletos && esPromesa && promesaMal
+
+		//const x = true;
+		//Análisis de lo que se espera
+		expect(cumpleTodo).toBe(true);
+
+	});
+
+	it("Test de borrar()", async function () {
+		// Vaciar localStorage antes de comenzar
+		localStorage.clear();
+		const usuarios = [
+			{
+				id: 1,
+				nombre: "Administrador",
+				usuario: "admin",
+				contrasena: "81dc9bdb52d04dc20036dbd8313ed055",
+				rol: "ADMINISTRADOR",
+			},
+			{
+				id: 2,
+				nombre: "Gabriel",
+				usuario: "gabriel",
+				contrasena: "81dc9bdb52d04dc20036dbd8313ed055",
+				rol: "USUARIO",
+			},
+			{
+				id: 3,
+				nombre: "Pedro",
+				usuario: "pepe",
+				contrasena: "81dc9bdb52d04dc20036dbd8313ed055",
+				rol: "USUARIO",
+			}
+		];
+
+		localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+		let existe = false;
+		try {
+			await Auth.getPorId(3);
+			existe = true;
+		} catch (e) {
+			existe = false;
+		}
+
+		//const x = true;
+		//Análisis de lo que se espera
+		expect(existe).toBe(true);
+
+	});
+
 });
