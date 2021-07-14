@@ -35,7 +35,7 @@ class Auth {
 
 		const promesa = new Promise(function (resolve, reject) {
 
-			// no puedo usar getUsuarios() porque no devuelve contraseña
+			//! no puedo usar getUsuarios() porque no devuelve contraseña
 			let usuarios = JSON.parse(localStorage.getItem('usuarios'));
 			if (usuarios) {
 
@@ -253,7 +253,7 @@ class Auth {
 
 	}
 
-	// getPerfil() {}
+	//todo getPerfil() {}
 }
 
 export default new Auth();

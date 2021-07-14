@@ -161,7 +161,7 @@ describe("Testeo de métodos de Auth", function () {
 			rol: "ADMINISTRADOR",
 		};
 
-		const nuevoUser = await Auth.guardar(nuevoUsuarioBien);
+		//const nuevoUser = await Auth.guardar(nuevoUsuarioBien);
 		const todosUsuarios = JSON.parse(localStorage.getItem("usuarios"));
 
 		let contrasenaMd5 = md5(contrasena) == todosUsuarios[todosUsuarios.length - 1].contrasena ? true : false;
