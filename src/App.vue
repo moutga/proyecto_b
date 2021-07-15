@@ -17,8 +17,8 @@
 			<v-spacer></v-spacer>
 
 			<v-btn to="/usuarios" text>
-				<v-icon>mdi-account-box-multiple</v-icon>
-				<span class="ml-2"> Usuarios</span>
+				<v-icon left>mdi-account-box-multiple</v-icon>
+				Usuarios
 			</v-btn>
 		</v-app-bar>
 
@@ -58,6 +58,20 @@ export default {
 				usuario: "alejandro",
 				contrasena: "81dc9bdb52d04dc20036dbd8313ed055",
 				rol: "USUARIO",
+			},
+			{
+				id: 7,
+				nombre: "Miguel",
+				usuario: "michi",
+				contrasena: "81dc9bdb52d04dc20036dbd8313ed055",
+				rol: "USUARIO",
+			},
+			{
+				id: 9,
+				nombre: "Ana",
+				usuario: "anie",
+				contrasena: "81dc9bdb52d04dc20036dbd8313ed055",
+				rol: "ADMINISTRADOR",
 			},
 		];
 
