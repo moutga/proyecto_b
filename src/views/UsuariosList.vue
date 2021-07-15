@@ -105,6 +105,9 @@ export default {
 };
 </script>
 <style scoped>
+.v-dialog__content{
+	align-items: start;
+}
 .list-item{}
 /* Transición de entrada */
 .list-enter{ /* Estado inicial (previo al normal) de la lista */
