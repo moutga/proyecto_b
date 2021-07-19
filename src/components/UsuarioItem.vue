@@ -3,7 +3,9 @@
 		<v-col class=""><v-chip small label>#{{id}}</v-chip> {{nombre}} </v-col>
 		<v-col class="col-3">
 			<v-row class="pt-2 justify-end">
+				<router-link :to="{ name: 'usuario', params: { id: id }}">
 				<v-btn class="mr-1" small color="primary" elevation="1" icon outlined><v-icon>mdi-account-edit-outline</v-icon></v-btn>
+				</router-link>
 				<v-btn @click.native="borrarEste" small color="red" elevation="1" icon outlined><v-icon>mdi-trash-can-outline</v-icon></v-btn>
 			</v-row>
 		</v-col>

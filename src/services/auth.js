@@ -230,7 +230,7 @@ class Auth {
 		// anónima y asíncrona para poder usar await getUsuarios()
 		return new Promise(async function (resolve, reject) {
 
-			//usuarios = await getUsuarios();
+			//usuarios = await t.getUsuarios();
 			usuarios = JSON.parse(localStorage.getItem('usuarios'));
 
 			existe = usuarios.findIndex(function (u) {

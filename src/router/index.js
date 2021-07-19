@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import vistaAgenda from "../views/vistaAgenda.vue";
 import UsuariosList from "../views/UsuariosList.vue";
+import UsuarioEdit from "../views/UsuarioEdit.vue";
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,8 @@ const routes = [
 		name: "Usuarios",
 		component: UsuariosList,
 	},
+	//* ruta/parametro, qué componente forma la vista y nombre de la vista para invocarla
+	{ path: '/usuarios/:id', component: UsuarioEdit, name: 'usuario' },
 	{
 		path: "/agenda",
 		name: "Agenda",

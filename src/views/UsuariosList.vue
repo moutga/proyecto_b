@@ -15,9 +15,12 @@
 
 	<v-container>
 	<v-row >
-		<v-btn class="ml-auto" color="green" elevation="1" outlined>
+		<router-link class="ml-auto" :to="{ name: 'usuario', params: { id: -1 }}">
+		<v-btn color="green" elevation="1" outlined>
 			<v-icon left>mdi-account-plus-outline</v-icon> Añadir usuario
 		</v-btn>
+		</router-link>
+
 	</v-row>
 	</v-container>
 
