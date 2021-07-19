@@ -197,7 +197,7 @@ class Auth {
 		let usuarios;
 
 		// anónima y asíncrona para poder usar await getUsuarios()
-		return new Promise(async function (resolve, reject) {
+		return new Promise( function (resolve, reject) {
 
 			// usa getUsuarios para levantar la lista
 			//usuarios = await this.getUsuarios();
@@ -228,7 +228,7 @@ class Auth {
 		let usuarios;
 
 		// anónima y asíncrona para poder usar await getUsuarios()
-		return new Promise(async function (resolve, reject) {
+		return new Promise( function (resolve, reject) {
 
 			//usuarios = await t.getUsuarios();
 			usuarios = JSON.parse(localStorage.getItem('usuarios'));

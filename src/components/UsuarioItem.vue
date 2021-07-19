@@ -1,6 +1,6 @@
 <template lang="es" class="" >
 	<v-row class="grey pr-2 lighten-5 usuarioItem" >
-		<v-col class=""><v-chip small label>#{{id}}</v-chip> {{nombre}} </v-col>
+		<v-col class=""><v-chip small label>#{{id}}</v-chip> {{nombre}}</v-col>
 		<v-col class="col-3">
 			<v-row class="pt-2 justify-end">
 				<router-link :to="{ name: 'usuario', params: { id: id }}">
