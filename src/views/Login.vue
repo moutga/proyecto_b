@@ -1,7 +1,7 @@
 <template>
 <div>
 
-	<v-form @submit.prevent="miSubmit" class="w-75 mx-auto " ref="form" >
+	<v-form @submit.prevent="miSubmit" class="w-75 mx-auto " ref="form" v-if="!isLogueado" >
 
 		<v-sheet class="pa-2 text-center mb-4" color="white" elevation="1"  >Iniciar sesión</v-sheet>
 
@@ -19,6 +19,12 @@
 		<v-btn  class="my-4 primary" type="submit"  >Ingresar</v-btn>
 
 	</v-form>
+
+	<v-container v-else >
+		<v-alert dense outlined type="success">
+		Bienvenido <strong>{{usuarioLogueado.nombre}}</strong>
+		</v-alert>
+	</v-container>
 
 </div>
 </template>
@@ -46,7 +52,11 @@ export default {
 	},
 	props: {},
 	computed: {
-		...mapGetters(['getSesion'])
+		...mapGetters(['getSesion']),
+
+		isLogueado: function(){
+			return (this.$store.state.sesion.id)? true : false;
+		}
 	},
 	methods: {
 		miSubmit: async function() {
@@ -63,17 +73,23 @@ export default {
 					//* commit para llamar a una Mutation
 					//* y lectura directa de state y via getters
 					this.$store.commit('setSesion',this.usuarioLogueado);
-					//console.log(this.$store.state.sesion);
-					//console.log(this.$store.getters.getSesion);
+					// console.log(this.$store.state.sesion);
+					// console.log(this.$store.getters.getSesion);
 
 				} catch(e){
 					this.error = true;
 					this.buscando = false;
 				}
-				
 
 			}
 		}
+	},
+	mounted: function(){
+
+		if(this.$store.getters.getSesion){
+			this.usuarioLogueado = this.$store.getters.getSesion
+		}
+
 	}
 }
 </script>
