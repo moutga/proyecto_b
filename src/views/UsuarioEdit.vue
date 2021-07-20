@@ -33,7 +33,7 @@
 
 		<v-card>
 			<v-card-text>
-				Error: {{error}}
+				{{msgDialogo}}
 			</v-card-text>
 			<v-card-actions>
 				<v-spacer></v-spacer>
@@ -66,7 +66,7 @@ export default {
 				}
 			],
 			reglasContrasena: [],
-			error: null,
+			msgDialogo: null,
 			dialog: false
 		};
 	},
@@ -85,10 +85,13 @@ export default {
 					
 					try {
 
-						await Auth.actualizar(this.usuario)
+						await Auth.actualizar(this.usuario);
+
+						this.msgDialogo = 'Información del usuario actualizada'
+						this.dialog = true
 
 					} catch(e){
-						this.error = e
+						this.msgDialogo = 'Error: '+e
 						this.dialog = true
 					}
 
@@ -98,20 +101,19 @@ export default {
 						
 						this.usuario.contrasena = this.nuevaPass;
 						this.usuario = await Auth.guardar(this.usuario);
-						console.log(this.usuario);
-						this.$router.replace({ path: '/usuarios/11' }); 
+
+						//* Redirección al usuario recién creado
+						this.id = this.usuario.id;
+						this.$router.replace({ path: `/usuarios/${this.id}` });
+						this.esNuevo = false
+
+						this.msgDialogo = "Nuevo usuario creado exitosamente";
+						this.dialog = true;
 
 					} catch(e){
-						this.error = e;
+						this.msgDialogo = 'Error: '+e;
 						this.dialog = true;
 					}
-
-					//* Recupero id del último usuario añadido para
-					//* saltar a su página de edición
-					//! NO ANDA
-					// let todosUsuarios = await Auth.getUsuarios();
-					// let ultimoUsuario = todosUsuarios[todosUsuarios.length-1].id; 
-					// this.$router.push({ path: '/usuarios' }); 
 
 				}
 
@@ -125,8 +127,10 @@ export default {
 			//* Si viene id la meto en data
 			this.$route.params.id && ( this.id = this.$route.params.id );
 			if(this.id != -1){
+
 				this.usuario = await Auth.getPorId(this.id);
 				//console.log(this.usuario);
+				
 			} else if(this.id == -1) {
 				this.esNuevo = true
 			}

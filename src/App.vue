@@ -16,6 +16,10 @@
 
 			<v-spacer></v-spacer>
 
+			<v-btn to="/login" text>
+				<v-icon left>mdi-account-box-multiple</v-icon>
+				Login
+			</v-btn>
 			<v-btn to="/usuarios" text>
 				<v-icon left>mdi-account-box-multiple</v-icon>
 				Usuarios

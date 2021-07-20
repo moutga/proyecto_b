@@ -73,7 +73,7 @@ export default {
 		},
 		aceptaBorrar: function(){
 
-			console.log('Se borra usuario ' + this.borrando);
+			//console.log('Se borra usuario ' + this.borrando);
 
 			//* Obtengo el rel del contacto/item que quiero borrar
 			//? let item = 'item'+this.borrando;
@@ -89,6 +89,7 @@ export default {
 				return u.id == borrando
 			});
 			this.usuarios.splice(cualBorroRender,1);
+			Auth.borrar(borrando);
 
 			//* Cierro diálogo y vacío el borrando
 			this.dialog = false;
