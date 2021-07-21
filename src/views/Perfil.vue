@@ -6,8 +6,8 @@
 
 		<!-- //* Campos de texto -->
 		<v-text-field :rules="reglas" v-model="usuario.nombre" name="nombre" label="Nombre" prepend-inner-icon="mdi-account"></v-text-field>
-		<v-text-field :rules="['reglas']" v-model="nuevaPass" name="contrasena" type="password" label="Contraseña" prepend-inner-icon="mdi-form-textbox-password"></v-text-field>
-		<v-text-field :rules="['reglas']" v-model="nuevaPass" name="contrasenaDos" type="password" label="Repetir Contraseña" prepend-inner-icon="mdi-form-textbox-password"></v-text-field>
+		<v-text-field v-model="nuevaPass" name="contrasena" type="password" label="Contraseña" prepend-inner-icon="mdi-form-textbox-password"></v-text-field>
+		<v-text-field :rules="reglaB" v-model="nuevaPassDos" name="contrasenaDos" type="password" label="Repetir Contraseña" prepend-inner-icon="mdi-form-textbox-password"></v-text-field>
 
 		<!-- //* Botones -->
 		<v-btn class="my-4 primary" type="submit" >Guardar</v-btn>
@@ -38,33 +38,81 @@
 </template>
 
 <script>
-// import Auth from "@/services/auth.js";
+import Auth from "@/services/auth.js";
 // import { mapGetters } from 'vuex'
 
 export default {
 	name: 'Perfil',
 	data: function(){return {
 		usuario: {},
-		hayError: false,
-		esNuevo: false,
 		nuevaPass: null,
+		nuevaPassDos: null,
 		reglas: [
-				function(x){
-					return !!x || 'Dato obligatorio'
-				}
-			],
-			reglasContrasena: [],
-			msgDialogo: null,
-			dialog: false
+			function(x){
+				return !!x || 'Dato obligatorio'
+			}
+		],
+		reglasContrasenaDos: [],
+		msgDialogo: null,
+		dialog: false
 	};},
 	props: {},
-	computed: {},
-	methods: {
-		guardar: function(){
-			this.msgDialogo = "Mensaje_de_guardado";
-			this.dialog = true;
-			return 0;
+	computed: {
+		reglaB: function(){
+
+			let r = [];
+
+			//* Si se ingresa una primera contraseña
+			//* el segundo campo se vuelve obligatorio
+			if(this.nuevaPass){
+				r[0] = function (x){
+					return !!x || 'Dato obligatorio'
+				}
+			}
+
+			return r;
+
 		}
+	},
+	methods: {
+		guardar: async function(){
+			if(this.$refs.formulario.validate()){
+
+				if(this.nuevaPass != this.nuevaPassDos){
+					this.msgDialogo = "Error: Las contraseñas no coinciden";
+					this.dialog = true;
+					return;
+				} else {
+
+					this.usuario.contrasena = this.nuevaPass;
+					
+					try{
+
+						this.usuario = await Auth.actualizar(this.usuario);
+						console.log(this.usuario);
+
+						// let usuarioLogueado = await Auth.login(this.usuario.usuario,this.nuevaPass);
+						this.$store.commit('setSesion',this.usuario);
+
+					} catch(e){
+						this.msgDialogo = "Error: " + e;
+						this.dialog = true;
+					}
+
+				}
+
+			}
+		}
+	},
+	mounted: async function(){
+
+		try {
+			this.usuario = await Auth.getPerfil();
+		} catch(e) {
+			this.msgDialogo = "Error: " + e;
+			this.dialog = true;
+		}
+
 	}
 }
 </script>

@@ -28,7 +28,7 @@
 		Bienvenido <strong>{{usuarioLogueado.nombre}}</strong>
 		</v-alert>
 
-		<router-link :to="{ name: 'Perfil'}">
+		<router-link :to="{ name: 'Perfil' }">
 			<v-btn  class="my-4 primary" type="submit"  >Perfil</v-btn>
 		</router-link>
 

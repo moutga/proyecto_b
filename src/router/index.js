@@ -7,7 +7,8 @@ import Perfil from "../views/Perfil.vue";
 import UsuariosList from "../views/UsuariosList.vue";
 import UsuarioEdit from "../views/UsuarioEdit.vue";
 
-import store from '../store'
+import store from '../store';
+import Auth from "@/services/auth.js";
 
 Vue.use(VueRouter);
 
@@ -50,6 +51,18 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
 
 	if( (to.name == 'Usuarios' || to.name == 'usuario') && store.state.sesion.rol != 'ADMINISTRADOR' ) {
+
+		next({ name: 'Login' });
+
+	} else {
+		next();
+	} 
+
+});
+
+router.beforeEach((to, from, next) => {
+
+	if( (to.name == 'Perfil') && (!Auth.getPerfil()) ) {
 
 		next({ name: 'Login' });
 
