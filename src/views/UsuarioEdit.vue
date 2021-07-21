@@ -2,12 +2,14 @@
 <div>
 
 	<v-container class="mb-3">
-	<!--//* Mensaje de error si la ID no coincide con la de un usuario existente -->
-	<v-alert v-if="hayError" elevation="3" outlined type="error">Ese usuario no existe</v-alert>
-	<!--//* Mensaje de error si la ID no coincide con la de un usuario existente -->
-	<v-alert v-if="esNuevo" elevation="3" outlined type="info">Nuevo usuario</v-alert>
-	<!--//* Mensaje de error si la ID no coincide con la de un usuario existente -->
-	<v-alert v-if="(!esNuevo&&!hayError)" elevation="3" outlined type="info">Editando el usuario <span class="font-weight-bold">{{usuario.usuario}}</span></v-alert>
+
+		<!--//* Mensaje de error si la ID no coincide con la de un usuario existente -->
+		<v-alert v-if="hayError" elevation="3" outlined type="error">Ese usuario no existe</v-alert>
+		<!--//* Mensaje de error si la ID no coincide con la de un usuario existente -->
+		<v-alert v-if="esNuevo" elevation="3" outlined type="info">Nuevo usuario</v-alert>
+		<!--//* Mensaje de error si la ID no coincide con la de un usuario existente -->
+		<v-alert v-if="(!esNuevo&&!hayError)" elevation="3" outlined type="info">Editando el usuario <span class="font-weight-bold">{{usuario.usuario}}</span></v-alert>
+
 	</v-container>
 
 	<v-container class="">

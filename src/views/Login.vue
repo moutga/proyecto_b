@@ -1,6 +1,8 @@
 <template>
 <div>
 
+	<v-sheet class="pa-1 text-center mb-4 mx-auto max-w-300" color="white" elevation="1">
+		
 	<v-form @submit.prevent="miSubmit" class="w-75 mx-auto " ref="form" v-if="!isLogueado" >
 
 		<v-sheet class="pa-2 text-center mb-4" color="white" elevation="1"  >Iniciar sesión</v-sheet>
@@ -19,12 +21,20 @@
 		<v-btn  class="my-4 primary" type="submit"  >Ingresar</v-btn>
 
 	</v-form>
-
+	
 	<v-container v-else >
+
 		<v-alert dense outlined type="success">
 		Bienvenido <strong>{{usuarioLogueado.nombre}}</strong>
 		</v-alert>
+
+		<router-link :to="{ name: 'Perfil'}">
+			<v-btn  class="my-4 primary" type="submit"  >Perfil</v-btn>
+		</router-link>
+
 	</v-container>
+
+	</v-sheet>
 
 </div>
 </template>
@@ -84,11 +94,18 @@ export default {
 			}
 		}
 	},
-	mounted: function(){
+	mounted: async function(){
 
-		if(this.$store.getters.getSesion){
-			this.usuarioLogueado = this.$store.getters.getSesion
+		try{
+
+			this.usuarioLogueado = await Auth.getPerfil();
+			//console.log(this.usuarioLogueado);
+			this.$store.commit('setSesion',this.usuarioLogueado);
+
+		} catch(e){
+			console.log(e);
 		}
+		
 
 	}
 }

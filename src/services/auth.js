@@ -46,6 +46,8 @@ class Auth {
 				if (elUser) {
 					delete elUser.contrasena
 
+					localStorage.setItem('sesion', JSON.stringify(elUser));
+
 					resolve(elUser);
 
 				} else {
@@ -253,7 +255,21 @@ class Auth {
 
 	}
 
-	//todo getPerfil() {}
+	getPerfil() {
+		return new Promise(function (resolve, reject) {
+
+				let sesion = JSON.parse(localStorage.getItem('sesion'));
+
+				if(sesion) {
+
+					resolve(sesion);
+
+				} else {
+					reject('Usuario no encontrado')
+				}
+
+		});
+	}
 }
 
 export default new Auth();
