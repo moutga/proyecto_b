@@ -89,10 +89,15 @@ export default {
 					try{
 
 						this.usuario = await Auth.actualizar(this.usuario);
-						console.log(this.usuario);
+						//console.log(this.usuario);
 
 						// let usuarioLogueado = await Auth.login(this.usuario.usuario,this.nuevaPass);
 						this.$store.commit('setSesion',this.usuario);
+						delete this.usuario.contrasena;
+						localStorage.setItem('sesion',JSON.stringify(this.usuario));
+
+						this.msgDialogo = "Datos guardados";
+						this.dialog = true;
 
 					} catch(e){
 						this.msgDialogo = "Error: " + e;

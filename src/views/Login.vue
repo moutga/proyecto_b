@@ -99,13 +99,14 @@ export default {
 		try{
 
 			this.usuarioLogueado = await Auth.getPerfil();
-			//console.log(this.usuarioLogueado);
+			console.log(this.usuarioLogueado);
 			this.$store.commit('setSesion',this.usuarioLogueado);
 
 		} catch(e){
 			console.log(e);
+			this.usuarioLogueado = {};
+			this.$store.commit('setSesion',this.usuarioLogueado);
 		}
-		
 
 	}
 }
