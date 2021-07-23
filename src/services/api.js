@@ -1,5 +1,4 @@
 class Api {
-	self = this;
 
 	getTodosContactos() {
 
@@ -75,16 +74,34 @@ class Api {
 
 	}
 	//-----------------------------
-	guardar(nuevo) {
+	async guardar(nuevo) {
 
 		//* Verifico info básica
 		let nombre = nuevo.nombre || false;
 		let email = nuevo.emails || false;
 		let telefono = nuevo.telefonos || false;
-		// let hayEmailTelefono = true;
-		// if(!email && !telefono){
-		// 	hayEmailTelefono = false; //No hay teléfonos ni email
-		// }
+
+		let contactos = await this.getTodosContactos() || [];
+
+		return new Promise( function(resolve,reject){
+
+			if(!nombre){ reject('El nombre es obligatorio'); return; }
+			if(!email && !telefono){ reject('El contacto debe tener un email o un teléfono'); return; }
+			if(!email[0].email && !telefono[0].telefono){ reject('El contacto debe tener un email o un teléfono'); return; }
+
+			nuevo.id = contactos[contactos.length - 1].id + 1;
+
+			(telefono)? nuevo.telefonos[0].id = 1 : false;
+			(email)? nuevo.emails[0].id = 1 : false;
+
+			contactos = [...contactos,nuevo];
+			localStorage.setItem('contactos',JSON.stringify(contactos));
+
+			resolve(nuevo)
+			console.log(contactos);
+
+		});
+
 	}
 	//-----------------------------
 	actualizar(){}

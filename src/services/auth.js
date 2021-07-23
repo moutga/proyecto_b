@@ -2,13 +2,13 @@ import md5 from "@/funciones/md5.js";
 
 class Auth {
 
-	getUsuarios() {
+	async getUsuarios() {
 
-		const promesa = new Promise(function (resolve, reject) {
+		const promesa = await new Promise(function (resolve, reject) {
 
 			setTimeout(() => {
 
-				let usuarios = JSON.parse(localStorage.getItem('usuarios'));
+				let usuarios =  JSON.parse(localStorage.getItem('usuarios'));
 
 				if (usuarios) {
 
@@ -66,14 +66,17 @@ class Auth {
 
 	}
 
-	guardar(usuData) {
+	async guardar(usuData) {
 
 		let userExiste = false;
 		let rolCorrecto = (usuData.rol == 'USUARIO' || usuData.rol == 'ADMINISTRADOR') ? true : false;
 		let todosDatos = (usuData.nombre && usuData.usuario && usuData.rol && usuData.contrasena) ? true : false;
 		//console.log(rolCorrecto);
 
-		const promesa = new Promise(function (resolve, reject) {
+		let usuarios = await this.getUsuarios();
+		// console.log(usuarios);
+
+		return await new Promise( function (resolve, reject) {
 
 			if (!rolCorrecto) {
 				reject('Rol incorrecto');
@@ -87,10 +90,9 @@ class Auth {
 			let nuevoNombreUsuario = usuData.usuario.toLowerCase();
 
 			let nuevoUsuario = {};
-			let usuarios = [];
 
-			usuarios = JSON.parse(localStorage.getItem('usuarios'));
-			//usuarios = await getUsuarios();
+			//usuarios = JSON.parse(localStorage.getItem('usuarios'));
+			
 
 			if (usuarios) {
 
@@ -131,8 +133,6 @@ class Auth {
 			resolve(nuevoUsuario);
 
 		});
-
-		return promesa;
 
 	}
 
