@@ -98,9 +98,19 @@ export default {
 		}
 	},
 	mounted: async function() {
-		// recupero la lista de contactos
+
+		try { //* todo el código que querés que se ejecute si la promesa sale por resolve()
+
+		//* recupero la lista de contactos
 		this.usuarios = await Auth.getUsuarios();
 		this.cargandoLista = true;
+
+		} catch(e){
+
+			//* todo el código que querés que se ejecute si
+			//* la promsea sale por reject()
+			this.mostrarVentanitaConError = true;
+		}
 
 	},
 	components: {
