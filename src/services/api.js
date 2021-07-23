@@ -75,7 +75,17 @@ class Api {
 
 	}
 	//-----------------------------
-	guardar(){}
+	guardar(nuevo) {
+
+		//* Verifico info básica
+		let nombre = nuevo.nombre || false;
+		let email = nuevo.emails || false;
+		let telefono = nuevo.telefonos || false;
+		// let hayEmailTelefono = true;
+		// if(!email && !telefono){
+		// 	hayEmailTelefono = false; //No hay teléfonos ni email
+		// }
+	}
 	//-----------------------------
 	actualizar(){}
 	//-----------------------------
