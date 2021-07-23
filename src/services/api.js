@@ -85,6 +85,7 @@ class Api {
 
 		return new Promise( function(resolve,reject){
 
+			//* rejects para casos de información incompleta
 			if(!nombre){ reject('El nombre es obligatorio'); return; }
 			if(!email && !telefono){ reject('El contacto debe tener un email o un teléfono'); return; }
 			if(!email[0].email && !telefono[0].telefono){ reject('El contacto debe tener un email o un teléfono'); return; }
@@ -106,7 +107,30 @@ class Api {
 	//-----------------------------
 	actualizar(){}
 	//-----------------------------
-	borrar(){}
+	async borrar(id) {
+
+		let contactos = await this.getTodosContactos();
+
+		return await new Promise(function (resolve, reject) {
+
+			let existe = contactos.findIndex(function (c) {
+				return c.id == id;
+			});
+
+			if (existe >= 0) {
+
+				contactos.splice(existe, 1);
+				localStorage.setItem('contactos', JSON.stringify(contactos));
+				resolve('Contacto eliminado');
+
+			} else {
+				reject('La ID no corresponde a un contacto');
+				return;
+			}
+
+		})
+
+	}
 
 }
 
