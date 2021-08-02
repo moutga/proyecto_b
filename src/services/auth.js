@@ -169,13 +169,13 @@ class Auth {
 				});
 
 				// Actualizo los valores del usuario que voy a trabajar directo sobre
-				// la lista vía el índice y loa argumentos
+				// la lista vía el índice y los argumentos
 				(usuData.usuario) ? (usuarios[indexUsuario].usuario = usuData.usuario) : false;
 				(usuData.rol) ? (usuarios[indexUsuario].rol = usuData.rol) : false;
 				(usuData.nombre) ? (usuarios[indexUsuario].nombre = usuData.nombre) : false;
 				(usuData.contrasena) ? (usuarios[indexUsuario].contrasena = md5(usuData.contrasena)) : false;
 
-				// Actualizao localStorage
+				// Actualizo localStorage
 				localStorage.setItem('usuarios', JSON.stringify(usuarios));
 
 				// Obtengo usuario con datos actualizados y retiro contraseña
