@@ -5,7 +5,9 @@ import vistaAgenda from "../views/vistaAgenda.vue";
 import Login from "../views/Login.vue";
 import Perfil from "../views/Perfil.vue";
 import UsuariosList from "../views/UsuariosList.vue";
+import ContactosList from "../views/ContactosList.vue";
 import UsuarioEdit from "../views/UsuarioEdit.vue";
+import ContactoEdit from "../views/ContactoEdit.vue";
 
 import store from '../store';
 import Auth from "@/services/auth.js";
@@ -40,6 +42,12 @@ const routes = [
 		name: "Perfil",
 		component: Perfil
 	},
+	{
+		path: "/contactos",
+		name: "Contactos",
+		component: ContactosList
+	},
+	{ path: '/contactos/:id', component: ContactoEdit, name: 'contacto' },
 ];
 
 const router = new VueRouter({
@@ -48,6 +56,7 @@ const router = new VueRouter({
 	routes,
 });
 
+//* Reglas de acceso según condiciones
 router.beforeEach((to, from, next) => {
 
 	if( (to.name == 'Usuarios' || to.name == 'usuario') && store.state.sesion.rol != 'ADMINISTRADOR' ) {
@@ -71,5 +80,6 @@ router.beforeEach((to, from, next) => {
 	} 
 
 });
+//********************************* */
 
 export default router;
